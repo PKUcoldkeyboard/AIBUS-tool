@@ -1,6 +1,7 @@
 name: Checkin Workflow
 
 on:
+  workflow_dispatch:
   schedule:
     - cron:  '0 4 * * *'  # UTC时间4点，北京时间中午12点
 
