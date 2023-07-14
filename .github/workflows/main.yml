@@ -29,7 +29,7 @@ jobs:
           python -c "
           import requests
           headers = {'Authorization': '$AUTH_TOKEN'}
-          response = requests.get('https://www.aibvs.net/api/user/checkin', headers=headers, verify=False)
+          response = requests.get('https://i.aibusx.com/api/user/checkin', headers=headers, verify=False)
           print(response.status_code)
           print(response.text)
           "
