@@ -27,12 +27,12 @@ jobs:
       - name: Set up Chrome
         uses: browser-actions/setup-chrome@v1
         with:
-          chrome-version: 'latest'
+          chrome-version: '1135580'
 
       - name: Set up ChromeDriver
         uses: nanasess/setup-chromedriver@v2
         with:
-          chromedriver-version: 'latest'
+          chromedriver-version: '114.0.5735.90'
       
       - name: Install dependencies
         run: |
