@@ -25,14 +25,21 @@ def login(driver, username, password, retry=0):
         print('Retrying...')
         login(driver, username, password, retry+1)
         
-    time.sleep(5)
+    time.sleep(3)
         
         
 # 签到
 def checkin(driver):
     try:
         WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, ':r1:')))
-        driver.find_element_by_id(':r1:').click()
+        button = driver.find_element_by_id(':r1:')
+        
+        # 检查button是否有效，可点击
+        if button.is_enabled():
+            button.click()
+        else:
+            raise RuntimeError("Button is disabled or not clickable")
+            
         print('签到成功！')
     except Exception as e:
         print('签到失败！')
