@@ -29,7 +29,13 @@ jobs:
           python -c "
           import requests
           headers = {'Authorization': '$AUTH_TOKEN'}
-          response = requests.get('https://i.aibusx.com/api/user/checkin', headers=headers, verify=False)
+          response = requests.get('https://i.aibusx.com/api/user/checkin', headers=headers, verify=False, allow_redirects=False)
           print(response.status_code)
           print(response.text)
+          if "window.redirect" in response.text:
+              # 提取重定向的URL
+              redirect_url = response.text.split("window.redirect('")[1].split("')")[0]
+              print("重定向URL:", redirect_url)
+          else:
+              print("没有找到window.redirect")
           "
