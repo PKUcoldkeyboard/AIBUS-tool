@@ -39,7 +39,7 @@ def checkin(driver):
             button.click()
         else:
             raise RuntimeError("Button is disabled or not clickable")
-            
+        time.sleep(3)
         print('签到成功！')
     except Exception as e:
         print('签到失败！')
