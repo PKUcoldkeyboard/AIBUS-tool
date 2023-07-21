@@ -25,7 +25,7 @@ def login(driver, username, password, retry=0):
         print('Retrying...')
         login(driver, username, password, retry+1)
         
-    time.sleep(2)
+    time.sleep(5)
         
         
 # 签到
