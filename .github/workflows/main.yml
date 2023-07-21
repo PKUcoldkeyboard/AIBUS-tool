@@ -28,12 +28,9 @@ jobs:
         run: |
           pip install selenium==3.8.0
 
-      - name: Test chromedriver
+      - name: Checkout chromedriver
         run: |
           chromedriver --version
-
-      - name: Prepare chromedriver
-        uses: nanasess/setup-chromedriver@v2
 
       - name: Working
         run: |
