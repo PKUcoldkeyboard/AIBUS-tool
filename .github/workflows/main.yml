@@ -38,3 +38,7 @@ jobs:
           python3 main.py
           python3 actions.py -u ${{ secrets.EMAIL2 }} -p ${{ secrets.PASSWD2 }}
           python3 main.py
+          python3 actions.py -u ${{ secrets.EMAIL3 }} -p ${{ secrets.PASSWD2 }}
+          python3 main.py
+          python3 actions.py -u ${{ secrets.EMAIL4 }} -p ${{ secrets.PASSWD2 }}
+          python3 main.py
