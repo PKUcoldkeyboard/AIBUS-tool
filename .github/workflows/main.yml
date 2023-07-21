@@ -24,40 +24,26 @@ jobs:
         run: |
           echo $CONDA/bin >> $GITHUB_PATH
           
-      - name: Set up Chrome
-        uses: browser-actions/setup-chrome@v1
-        with:
-          chrome-version: '1135580'
-
-#       - name: Set up ChromeDriver
-#         uses: nanasess/setup-chromedriver@v2
-#         with:
-#           chromedriver-version: '114.0.5735.90'
+      # - name: Set up Chrome
+      #   uses: browser-actions/setup-chrome@v1
+      #   with:
+      #     chrome-version: '1135580'
+      # - name: Set up ChromeDriver
+      #   uses: nanasess/setup-chromedriver@v2
+      #   with:
+      #     chromedriver-version: '114.0.5735.90'
       
       - name: Install dependencies
         run: |
           pip install selenium==3.8.0
 
-      - name: generate config.ini
-        run:
+      - name: Prepare chromedriver
+        uses: nanasess/setup-chromedriver@v2 
+
+      - name: Working
+        run: |
           python3 actions.py -u ${{ secrets.EMAIL1 }} -p ${{ secrets.PASSWD1 }}
-
-      - name: main
-        run:
           python3 main.py
-
-      - name: generate config.ini
-        run:
           python3 actions.py -u ${{ secrets.EMAIL2 }} -p ${{ secrets.PASSWD2 }}
-      
-      - name: main
-        run:
           python3 main.py
-
-      # - name: generate config.ini
-      #   run:
-      #     python3 actions.py -u ${{ secrets.EMAIL3 }} -p ${{ secrets.PASSWD3 }}
-      
-      # - name: main
-      #   run:
-      #     python3 main.py
+          
