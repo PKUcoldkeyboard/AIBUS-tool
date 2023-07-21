@@ -23,6 +23,10 @@ jobs:
       - name: Add conda to system path
         run: |
           echo $CONDA/bin >> $GITHUB_PATH
+          
+      - name: Chmod chrome
+        run:
+          chmod +x chromedriver/bin/chromedriver-linux
       
       - name: Install dependencies
         run: |
