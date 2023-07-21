@@ -29,7 +29,8 @@ def go(config):
 if __name__ == '__main__':
     # driver_pjs = webdriver.PhantomJS(executable_path=sys_path(browser='phantomjs'))
     browser = 'chromedriver'
-    driver = webdriver.Chrome(executable_path=sys_path(browser=browser))
+    # driver = webdriver.Chrome(executable_path=sys_path(browser=browser))
+    driver = webdriver.Chrome()
     print(f"Driver {browser} is ready.")
     go('config.ini')
     driver.quit()

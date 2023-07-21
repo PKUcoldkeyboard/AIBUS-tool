@@ -24,9 +24,11 @@ jobs:
         run: |
           echo $CONDA/bin >> $GITHUB_PATH
           
-      - name: Chmod chrome
-        run:
-          chmod +x chromedriver/bin/chromedriver-linux
+      - name: Set up Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Set up ChromeDriver
+        uses: nanasess/setup-chromedriver@v1
       
       - name: Install dependencies
         run: |
