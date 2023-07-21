@@ -25,11 +25,12 @@ def login(driver, username, password, retry=0):
         print('Retrying...')
         login(driver, username, password, retry+1)
         
+    time.sleep(2)
+        
         
 # 签到
 def checkin(driver):
     try:
-        driver.get('https://i.aibusx.com/account-center')
         WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, ':r1:')))
         driver.find_element_by_id(':r1:').click()
         print('签到成功！')
