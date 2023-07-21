@@ -30,7 +30,7 @@ if __name__ == '__main__':
     # driver_pjs = webdriver.PhantomJS(executable_path=sys_path(browser='phantomjs'))
     browser = 'chromedriver'
     # driver = webdriver.Chrome(executable_path=sys_path(browser=browser))
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome(exutable_path='/opt/hostedtoolcache/chromium/1135580/x64/chrome')
     print(f"Driver {browser} is ready.")
     go('config.ini')
     driver.quit()
