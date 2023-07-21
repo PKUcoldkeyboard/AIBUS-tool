@@ -8,34 +8,46 @@ on:
 jobs:
   checkin:
     runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 5
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
         
-      - name: Set up Python
+      - name: Set up Python 3.9
         uses: actions/setup-python@v2
         with:
-          python-version: 3.x
+          python-version: 3.9
 
+      - name: Add conda to system path
+        run: |
+          echo $CONDA/bin >> $GITHUB_PATH
+      
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install requests
+          pip install selenium==3.8.0
 
-      - name: Run checkin script
-        env:
-          AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
-        run: |
-          python -c "
-          import requests
-          headers = {'Authorization': '$AUTH_TOKEN'}
-          response = requests.get('https://i.aibusx.com/api/user/checkin', headers=headers, verify=False, allow_redirects=False)
-          print(response.status_code)
-          print(response.text)
-          if "window.redirect" in response.text:
-              # 提取重定向的URL
-              redirect_url = response.text.split("window.redirect('")[1].split("')")[0]
-              print("重定向URL:", redirect_url)
-          else:
-              print("没有找到window.redirect")
-          "
+      - name: generate config.ini
+        run:
+          python3 actions.py -u ${{ secrets.EMAIL1 }} -p ${{ secrets.PASSWD1 }}
+
+      - name: main
+        run:
+          python3 main.py
+
+      - name: generate config.ini
+        run:
+          python3 actions.py -u ${{ secrets.EMAIL2 }} -p ${{ secrets.PASSWD2 }}
+      
+      - name: main
+        run:
+          python3 main.py
+
+      # - name: generate config.ini
+      #   run:
+      #     python3 actions.py -u ${{ secrets.EMAIL3 }} -p ${{ secrets.PASSWD3 }}
+      
+      # - name: main
+      #   run:
+      #     python3 main.py
