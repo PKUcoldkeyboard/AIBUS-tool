@@ -31,8 +31,10 @@ def checkin(driver):
     try:
         driver.find_element_by_id(':r1:').click()
         print('签到成功！')
-    except:
+    except Exception as e:
         print('签到失败！')
+        print(e)
+        
 
 def run(driver, username, password):
     login(driver, username, password)
