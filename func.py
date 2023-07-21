@@ -29,6 +29,7 @@ def login(driver, username, password, retry=0):
 # 签到
 def checkin(driver):
     try:
+        WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, ':r1:')))
         driver.find_element_by_id(':r1:').click()
         print('签到成功！')
     except Exception as e:
