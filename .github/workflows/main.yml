@@ -38,7 +38,7 @@ jobs:
           pip install selenium==3.8.0
 
       - name: Prepare chromedriver
-        uses: nanasess/setup-chromedriver@v2 
+        uses: nanasess/setup-chromedriver@v1 
 
       - name: Working
         run: |
@@ -46,4 +46,3 @@ jobs:
           python3 main.py
           python3 actions.py -u ${{ secrets.EMAIL2 }} -p ${{ secrets.PASSWD2 }}
           python3 main.py
-          
