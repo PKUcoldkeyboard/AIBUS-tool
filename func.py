@@ -31,8 +31,8 @@ def login(driver, username, password, retry=0):
 # 签到
 def checkin(driver):
     try:
-        WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, ':r1:')))
-        button = driver.find_element_by_id(':r1:')
+        WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, ':rb:')))
+        button = driver.find_element_by_id(':rb:')
         
         # 检查button是否有效，可点击
         if button.is_enabled():
