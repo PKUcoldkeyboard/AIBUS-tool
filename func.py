@@ -31,8 +31,10 @@ def login(driver, username, password, retry=0):
 # 签到
 def checkin(driver):
     try:
-        # WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, ':rb:')))
-        button = driver.find_element_by_xpath('/html/body/div[1]/div[2]/div[1]/div/div/div[2]/div/div[2]/button[1]')
+        wait = WebDriverWait(driver, 10)
+        
+        # 使用WebDriverWait等待元素可见
+        button = wait.until(EC.visibility_of_element_located((By.XPATH, '/html/body/div[1]/div[2]/div[1]/div/div/div[2]/div/div[2]/button[1]')))
         
         # 检查button是否有效，可点击
         if button.is_enabled():
