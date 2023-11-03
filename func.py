@@ -10,7 +10,7 @@ def login(driver, username, password, retry=0):
         raise ValueError('login failed.')
     
     print('login...')
-    url = 'https://aibusx.com/pages/login'
+    url = 'https://www.aibusx.com/pages/login'
     driver.get(url)
     WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[2]/div/div/div/div/form/button')))
     driver.find_element_by_id('email').send_keys(username)

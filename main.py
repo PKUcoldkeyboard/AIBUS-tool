@@ -31,8 +31,7 @@ if __name__ == '__main__':
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--disable-gpu')
     chrome_options.add_argument('--disable-dev-shm-usage')
-    chromedriver = '/usr/bin/chromedriver'
-    # chromedriver = './chromedriver/bin/chromedriver.exe'
+    chromedriver = sys_path('chromedriver')
     os.environ["webdriver.chrome.driver"] = chromedriver
     driver = webdriver.Chrome(chrome_options=chrome_options, executable_path=chromedriver)
     print(f"Chromedriver is ready.")
