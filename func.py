@@ -34,7 +34,7 @@ def checkin(driver):
         wait = WebDriverWait(driver, 10)
         
         # 使用WebDriverWait等待元素可见
-        button = wait.until(EC.visibility_of_element_located((By.XPATH, '/html/body/div[1]/div[2]/div[1]/div/div/div[2]/div/div[2]/button[1]')))
+        button = wait.until(EC.visibility_of_element_located((By.CLASS_NAME, 'MuiLoadingButton-root')))
         
         # 检查button是否有效，可点击
         if button.is_enabled():
@@ -45,7 +45,7 @@ def checkin(driver):
         print('签到成功！')
     except Exception as e:
         print('签到失败！')
-        print(e)
+        traceback.print_exc()
         
 
 def run(driver, username, password):
