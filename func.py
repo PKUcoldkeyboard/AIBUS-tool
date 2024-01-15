@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import time
 import traceback
 import warnings
@@ -14,18 +15,17 @@ warnings.filterwarnings('ignore')
 def login(driver, username, password, retry=0):
     if retry == 3:
         raise ValueError('login failed.')
-
-    print('login...')
-    url = 'https://www.aibusx.com/pages/login'
-    driver.get(url)
-    # WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.CLASS_NAME, 'MuiButton-sizeLarge')))
-    time.sleep(3)
-    driver.find_element(By.ID, 'email').send_keys(username)
-    time.sleep(0.1)
-    driver.find_element(By.ID, 'auth-login-password').send_keys(password)
-    time.sleep(0.1)
-    driver.find_elements(By.CLASS_NAME, 'MuiButton-sizeLarge')[0].click()
     try:
+        print('login...')
+        url = 'https://www.aibusx.com/pages/login'
+        driver.get(url)
+        # WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.CLASS_NAME, 'MuiButton-sizeLarge')))
+        time.sleep(3)
+        driver.find_element(By.ID, 'email').send_keys(username)
+        time.sleep(0.1)
+        driver.find_element(By.ID, 'auth-login-password').send_keys(password)
+        time.sleep(0.1)
+        driver.find_elements(By.CLASS_NAME, 'MuiButton-sizeLarge')[0].click()
         print('login succesfully.')
     except Exception as e:
         print('Retrying...')
@@ -72,7 +72,7 @@ def checkin(driver):
         uname = apikey['username']
         pwd = apikey['password']
         captcha_code = base64_api(
-            uname=uname, pwd=password, img='captcha.png', typeid=11)
+            uname=uname, pwd=pwd, img='captcha.png', typeid=11)
         print(f'验证码答案：{captcha_code}')
         driver.find_element(
             By.XPATH, '/html/body/div[2]/div[3]/div/div[1]/div/input').send_keys(captcha_code)

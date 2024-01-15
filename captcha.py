@@ -6,15 +6,22 @@ import json
 import requests
 
 
-def base64_api(uname, pwd, img, typeid):
-    with open(img, 'rb') as f:
-        base64_data = base64.b64encode(f.read())
-        b64 = base64_data.decode()
-    data = {'username': uname, 'password': pwd, 'typeid': typeid, 'image': b64}
-    result = json.loads(requests.post(
-        'http://api.ttshitu.com/predict', json=data).text)
-    if result['success']:
-        return result['data']['result']
-    else:
-        return result['message']
-    return ''
+def base64_api(uname, pwd, img, typeid, retry=0):
+    if retry == 3:
+        raise ValueError('Validation API failed.')
+    try:
+        with open(img, 'rb') as f:
+            base64_data = base64.b64encode(f.read())
+            b64 = base64_data.decode()
+        data = {'username': uname, 'password': pwd,
+                'typeid': typeid, 'image': b64}
+        result = json.loads(requests.post(
+            'http://api.ttshitu.com/predict', json=data).text)
+        if result['success']:
+            return result['data']['result']
+        else:
+            return result['message']
+        return ''
+    except Exception as e:
+        print('Retrying validating...')
+        return base64_api(uname, pwd, img, typeid, retry+1)
