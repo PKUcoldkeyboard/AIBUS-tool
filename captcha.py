@@ -18,10 +18,20 @@ def base64_api(uname, pwd, img, typeid, retry=0):
         result = json.loads(requests.post(
             'http://api.ttshitu.com/predict', json=data).text)
         if result['success']:
-            return result['data']['result']
+            return result['data']['id'], result['data']['result']
         else:
-            return result['message']
-        return ''
+            return None, result['message']
+
     except Exception as e:
         print('Retrying validating...')
         return base64_api(uname, pwd, img, typeid, retry+1)
+
+
+def report_error(id):
+    data = {'id': id}
+    result = json.loads(requests.post(
+        'http://api.ttshitu.com/reporterror.json', json=data).text)
+    if result['success']:
+        return '报错成功'
+    else:
+        return result['message']

@@ -9,6 +9,7 @@ from PIL import Image
 from selenium.webdriver.common.by import By
 
 from captcha import base64_api
+from captcha import report_error
 warnings.filterwarnings('ignore')
 
 
@@ -35,7 +36,9 @@ def login(driver, username, password, retry=0):
 
 
 # 签到
-def checkin(driver):
+def checkin(driver, retry=0):
+    if retry == 3:
+        raise ValueError('check in failed.')
     try:
         time.sleep(3)
         button = driver.find_elements(
@@ -71,9 +74,14 @@ def checkin(driver):
             apikey = json.load(f)
         uname = apikey['username']
         pwd = apikey['password']
-        captcha_code = base64_api(
-            uname=uname, pwd=pwd, img='captcha.png', typeid=11)
+        captcha_id, captcha_code = base64_api(
+            uname=uname, pwd=pwd, img='captcha.png', typeid=7)
         print(f'验证码答案：{captcha_code}')
+
+        if not (captcha_code.isdigit() and 0 <= int(captcha_code) <= 18):
+            report_error(captcha_id)
+            raise ValueError('Answer not valid.')
+
         driver.find_element(
             By.XPATH, '/html/body/div[2]/div[3]/div/div[1]/div/input').send_keys(captcha_code)
         driver.find_element(
@@ -85,6 +93,8 @@ def checkin(driver):
     except Exception as e:
         print('签到失败！')
         traceback.print_exc()
+        driver.refresh()
+        checkin(driver, retry+1)
 
 
 def run(driver, username, password):
