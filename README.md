@@ -1,6 +1,9 @@
 # Aibus-tool
 自动打卡AIbus
 
+## 弃用 AIbus 了
+AIbus 的响应速度越来越慢了，所以我已经更换为私有部署 LobeChat + API Key 的方式了，API Key 某宝可以买到，中转的也不贵，私有部署的网站加个 CDN 速度十分流畅。
+
 ## 安装chrome
 
 ```shell
